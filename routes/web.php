@@ -56,4 +56,15 @@ Route::group(['middleware' => ['auth'], 'prefix' => "log", 'as' => "log."], func
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group( ['middleware'=>['auth'], 'prefix' => "category", 'as' => "category."], function () {
+    Route::get('/', ['uses' => 'CategoryController@index', 'middleware' => 'authorize', 'roles' => ["Admin","User"]])->name('index');
+    Route::post('/reorder', 'CategoryController@reOrder')->name('reorder');
+    Route::get('{id}/edit', ['uses' => 'CategoryController@edit', 'middleware' => 'authorize', 'roles' => ["Admin"]])->name('edit');
+    Route::post('{id}/update', ['uses' => 'CategoryController@update', 'middleware' => 'authorize', 'roles' => ["Admin"]])->name('update');
+    Route::get('init', ['uses' => 'CategoryController@init', 'middleware' => 'authorize', 'roles' => ["Admin","User"]])->name('init');
+    Route::delete('{id}/delete', ['uses' =>'CategoryController@delete', 'middleware' => 'authorize', 'roles' => ["Admin"]])->name('delete');
+    Route::post('/handleDelete', 'CategoryController@deleteCells')->name('handleDelete');
+    Route::get('/Categories_datatable','CategoryController@categoriesDatatable')->name("Categories_datatable");
+/*--routes@@category*/
+});
 //--routes--

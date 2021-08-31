@@ -67,4 +67,15 @@ Route::group( ['middleware'=>['auth'], 'prefix' => "category", 'as' => "category
     Route::get('/Categories_datatable','CategoryController@categoriesDatatable')->name("Categories_datatable");
 /*--routes@@category*/
 });
+Route::group( ['middleware'=>['auth'], 'prefix' => "product", 'as' => "product."], function () {
+    Route::get('/', ['uses' => 'ProductController@index', 'middleware' => 'authorize', 'roles' => ["Admin","User"]])->name('index');
+    Route::get('/category_name_data', 'ProductController@categoryNameData')->name('category_name_data');    Route::get('{id}/edit', ['uses' => 'ProductController@edit', 'middleware' => 'authorize', 'roles' => ["Admin","User"]])->name('edit');
+    Route::post('{id}/update', ['uses' => 'ProductController@update', 'middleware' => 'authorize', 'roles' => ["Admin","User"]])->name('update');
+    Route::get('init', ['uses' => 'ProductController@init', 'middleware' => 'authorize', 'roles' => ["Admin","User"]])->name('init');
+    Route::delete('{id}/delete', ['uses' =>'ProductController@delete', 'middleware' => 'authorize', 'roles' => ["Admin"]])->name('delete');
+    Route::post('/handleDelete', 'ProductController@deleteCells')->name('handleDelete');
+    Route::get('/Products_datatable','ProductController@productsDatatable')->name("Products_datatable");
+/*--routes@@product*/
+});
 //--routes--
+

@@ -128,5 +128,13 @@ class  Category extends Model
         $data = Helper::initLogRecord('Category', $id, null, null, 'delete', $description, $record_before, $record_after);
     }
 
+
+    public static function allCats()
+    {
+        $data= self::where('admin_show',1);
+
+        return $data;
+    }
+
 //relations
 }
